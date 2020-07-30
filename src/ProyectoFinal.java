@@ -33,12 +33,6 @@ public class ProyectoFinal {
         String puede_pagar = showInputDialog("Puede pagar " + cuota_calculada + " mensualemnte?");
         rie.addFact(new EqualsClause("puede_pagar", puede_pagar));
         
-        if(inferir("apto_para_evaluacion")){
-            iniciarEvaluacion();
-        }
-    }
-    
-    public static void iniciarEvaluacion(){
         inferir("pre_aprobado");
     }
     
