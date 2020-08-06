@@ -1,6 +1,7 @@
 import com.github.cschen1205.ess.engine.*;
 import com.github.cschen1205.ess.enums.*;
 import com.github.cschen1205.ess.js.*;
+import static com.github.cschen1205.ess.engine.Console.showInputDialog;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.io.File;
 import java.nio.file.Files;
@@ -14,26 +15,14 @@ public class ProyectoFinal {
     
     static JSRuleInferenceEngine jsRie = cargarArchivoDeReglas();
     static RuleInferenceEngine rie = jsRie.getRie();
-        
+    static SimulacionDePrestamo simulacion;
         
     public static void main(String[] args) {
         rie.clearFacts();
         if(inferir("apto_para_simulacion")){
-            iniciarSimulacion();
+            simulacion = new SimulacionDePrestamo(rie);
+            inferir("pre_aprobado");
         }
-    }
-    
-    public static void iniciarSimulacion(){
-        String monto_solicitado = showInputDialog("Monto solicitado?");
-        rie.addFact(new EqualsClause("monto_solicitado", monto_solicitado));
-        String numero_cuotas = showInputDialog("numero_cuotas?");
-        rie.addFact(new EqualsClause("numero_cuotas", numero_cuotas));
-        
-        double cuota_calculada = 1.14*Double.parseDouble(monto_solicitado)/Integer.parseInt(numero_cuotas);
-        String puede_pagar = showInputDialog("Puede pagar " + cuota_calculada + " mensualemnte?");
-        rie.addFact(new EqualsClause("puede_pagar", puede_pagar));
-        
-        inferir("pre_aprobado");
     }
     
     public static boolean inferir(String goal){
@@ -91,12 +80,6 @@ public class ProyectoFinal {
         System.out.println(rie.getFacts());
         
         return ret;
-    }
-
-    private static String showInputDialog(String question) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print(question + " ");
-        return scanner.next();
     }
     
     private static JSRuleInferenceEngine cargarArchivoDeReglas(){
