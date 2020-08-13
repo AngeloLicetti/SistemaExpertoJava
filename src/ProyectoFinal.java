@@ -19,6 +19,40 @@ public class ProyectoFinal {
         
     public static void main(String[] args) {
         rie.clearFacts();
+        String opcion = "";
+        while(!opcion.equals("0")){
+            System.out.println("Elija una opcion");
+            System.out.println("_________________");
+            System.out.println("1 - Aperturar cuenta de ahorros");
+            System.out.println("2 - Aperturar cuenta corriente");
+            System.out.println("3 - Simulacion de prestamo");
+            System.out.println("0 - Salir");
+            System.out.println("_________________");
+            opcion = showInputDialog("Tu opción:");
+            switch(opcion){
+                case "1":
+                    aperturar_cuenta_ahorros();
+                    break;
+                case "2":
+                    aperturar_cuenta_corriente();
+                    break;
+                case "3":
+                    simulacion();
+                    break;
+            }
+            System.out.println("_________________");
+        }
+    }
+    
+    public static void aperturar_cuenta_ahorros(){
+        inferir("puede_aperturar_cuenta_de_ahorros");
+    }
+    
+    public static void aperturar_cuenta_corriente(){
+        inferir("puede_aperturar_cuenta_corriente");
+    }
+    
+    public static void simulacion(){
         if(inferir("apto_para_simulacion")){
             simulacion = new SimulacionDePrestamo(rie);
             inferir("pre_aprobado");

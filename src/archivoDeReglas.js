@@ -236,6 +236,23 @@ expert.newRule("posible_buen_pagador")
     .thenEquals("posible_buen_pagador", "s")
     .build()
 
+expert.newRule("documentos_correctos")
+    .ifLess("dni", "100000000")
+    .thenEquals("documentos_correctos", "s")
+    .build();
+
+expert.newRule("puede_aperturar_cuenta_corriente")
+    .ifEquals("buen_historial_crediticio", "s")
+    .andEquals("posible_buen_pagador", "s")
+    .thenEquals("puede_aperturar_cuenta_corriente", "s")
+    .build();
+
+expert.newRule("puede_aperturar_cuenta_de_ahorros")
+    .ifEquals("documentos_correctos", "s")
+    .andEquals("edad_adecuada", "s")
+    .thenEquals("puede_aperturar_cuenta_de_ahorros", "s")
+    .build();
+
 expert.newRule("pre_aprobado")
     .ifEquals("apto_para_evaluacion", "s")
     .andEquals("documentos_correctos", "s")
