@@ -5,17 +5,21 @@
  */
 package Vistas;
 
+import ReglasDelNegocio.MotorDeInferencia;
+
 /**
  *
  * @author Angelo
  */
 public class frmSimulacionTipo3 extends javax.swing.JFrame {
 
+    private MotorDeInferencia motor;
     /**
      * Creates new form frmSimulacionTipo3
      */
-    public frmSimulacionTipo3() {
+    public frmSimulacionTipo3(MotorDeInferencia motor) {
         initComponents();
+        this.motor = motor;
     }
 
     /**
@@ -83,7 +87,7 @@ public class frmSimulacionTipo3 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmSimulacionTipo3().setVisible(true);
+                new frmSimulacionTipo3(new MotorDeInferencia()).setVisible(true);
             }
         });
     }

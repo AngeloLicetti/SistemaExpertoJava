@@ -5,6 +5,8 @@
  */
 package Vistas;
 
+import ReglasDelNegocio.Clausula;
+import ReglasDelNegocio.MotorDeInferencia;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +15,11 @@ import javax.swing.JOptionPane;
  */
 public class frmSimularPrestamo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmSimularPrestamo
-     */
+    private MotorDeInferencia motor;
+    
     public frmSimularPrestamo() {
         initComponents();
+        motor = new MotorDeInferencia();
     }
 
     /**
@@ -158,28 +160,37 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
 
     private void btnGenerarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPrestamoActionPerformed
         // TODO add your handling code here:
-        int tipoCliente = 1;
+        int tipoCliente = 0;
         
+        agregarHechosDeEsteForm();
         
+        for(int i=1; i<4; i++){
+            motor.inferir(new Clausula("TipoDeCliente", "=", Integer.toString(i)));
+        }
+        
+        tipoCliente = Integer.parseInt(motor.getValor("TipoDeCliente"));
         
         switch(tipoCliente){
             case 1:
-                new frmSimulacionTipo1().setVisible(true);
+                new frmSimulacionTipo1(motor).setVisible(true);
                 break;
             case 2:
-                new frmSimulacionTipo2().setVisible(true);
+                new frmSimulacionTipo2(motor).setVisible(true);
                 break;
             case 3:
-                new frmSimulacionTipo3().setVisible(true);
+                new frmSimulacionTipo3(motor).setVisible(true);
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Cliente no apto para prestamo");
         }
     }//GEN-LAST:event_btnGenerarPrestamoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void agregarHechosDeEsteForm(){
+        motor.agregarHecho("Edad", "=", edadField.getText());
+        motor.agregarHecho("MesesAntiguedad", "=", mesesAntiguedadField.getText());
+        motor.agregarHecho("DeudasVigentes", "=", deudasVigentesField.getText());
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -215,10 +226,10 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
     private void cargarDatos(String id){
         switch(id){
             case "001":
-                llenarFields("72630638","Angelo Licetti","20", "30", "N");
+                llenarFields("72630638","Angelo Licetti","20", "3", "N");
                 break;
             case "002":
-                llenarFields("78945612","Angelo Licetti","20", "4", "N");
+                llenarFields("78945612","Angelo Licetti","20", "6", "N");
                 break;
             case "003":
                 llenarFields("6987412","Henry Arias","20", "30", "S");
