@@ -5,6 +5,8 @@
  */
 package Vistas;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Angelo
@@ -40,6 +42,7 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
         mesesAntiguedadLabel = new javax.swing.JLabel();
         deudasVigentesLabel = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
+        btnGenerarPrestamo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +76,13 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
             }
         });
 
+        btnGenerarPrestamo.setText("Generar Prestamo");
+        btnGenerarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPrestamoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,8 +107,11 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
                             .addComponent(mesesAntiguedadField, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                             .addComponent(deudasVigentesField, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
                         .addComponent(btnBuscar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGenerarPrestamo)
+                        .addGap(58, 58, 58)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -129,8 +142,10 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
                     .addComponent(deudasVigentesLabel)
                     .addComponent(deudasVigentesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnBuscar)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnGenerarPrestamo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,6 +155,27 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
         // TODO add your handling code here:
         cargarDatos(idclienteField.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnGenerarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPrestamoActionPerformed
+        // TODO add your handling code here:
+        int tipoCliente = 1;
+        
+        
+        
+        switch(tipoCliente){
+            case 1:
+                new frmSimulacionTipo1().setVisible(true);
+                break;
+            case 2:
+                new frmSimulacionTipo2().setVisible(true);
+                break;
+            case 3:
+                new frmSimulacionTipo3().setVisible(true);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Cliente no apto para prestamo");
+        }
+    }//GEN-LAST:event_btnGenerarPrestamoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +241,7 @@ public class frmSimularPrestamo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGenerarPrestamo;
     private javax.swing.JTextField deudasVigentesField;
     private javax.swing.JLabel deudasVigentesLabel;
     private javax.swing.JTextField dniField;
